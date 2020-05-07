@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th = "http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Главная</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/4.1.0/css/bootstrap.min.css" />
+    <script src="/webjars/jquery/3.3.1-1/jquery.min.js"></script>
+    <script src="/webjars/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="my-md-4 container">
+
+    <h1>Определить координаты по адресу</h1>
+    <form method="post" th:action="@{/search/address}" id="getCoordinatesByAddress" th:object="${addressForm}">
+
+        <div class="form-group">
+            <label for="address" class="control-label">Адрес</label>
+            <input id="address" class="form-control" th:field="*{address}"/>
+            <p th:each="error: ${#fields.errors('address')}"
+               th:text="${error}">Ошибка валидации</p>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Принять</button>
+    </form>
+
+    <h2 th:if="${data.coordinates != null}">Широта "[(${data.coordinates.latitude})]"</h2>
+    <h2 th:if="${data.coordinates != null}">Долгота "[(${data.coordinates.longitude})]"</h2>
+
+    <h1>Определить адрес по координатам</h1>
+    <form method="post" th:action="@{/search/coordinates}" id="getAddressByCoordinates" th:object="${coordinatesForm}">
+
+        <div class="form-group">
+            <label for="latitude" class="control-label">Широта</label>
+            <input id="latitude" class="form-control" th:field="*{latitude}"/>
+            <p th:each="error: ${#fields.errors('latitude')}"
+               th:text="${error}">Ошибка валидации</p>
+        </div>
+
+        <div class="form-group">
+            <label for="longitude" class="control-label">Долгота</label>
+            <input id="longitude" class="form-control" th:field="*{longitude}"/>
+            <p th:each="error: ${#fields.errors('longitude')}"
+               th:text="${error}">Ошибка валидации</p>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Принять</button>
+    </form>
+
+    <h2 th:if="${data.address != null}">Адрес "[(${data.address})]"</h2>
+
+</div>
+</body>
+</html>

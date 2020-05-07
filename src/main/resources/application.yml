@@ -1,0 +1,11 @@
+server:
+  port: 8081
+feign:
+  services:
+    sputnik:
+      coordinates:
+        url: http://whatsthere.maps.sputnik.ru
+      address:
+        url: http://search.maps.sputnik.ru
+
+
